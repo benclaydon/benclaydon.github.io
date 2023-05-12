@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.js": "/pchire.github.io/static/js/main.1f2ea396.js",
+    "static/js/39.1b978cb2.js": "/pchire.github.io/static/js/39.1b978cb2.js",
+    "favicon.ico": "/pchire.github.io/favicon.ico",
+    "index.html": "/pchire.github.io/index.html",
+    "favicon-32.png": "/pchire.github.io/favicon-32.png",
+    "favicon-16.png": "/pchire.github.io/favicon-16.png",
+    "manifest.json": "/pchire.github.io/manifest.json",
+    "serve.json": "/pchire.github.io/serve.json",
+    "main.1f2ea396.js.map": "/pchire.github.io/static/js/main.1f2ea396.js.map",
+    "39.1b978cb2.js.map": "/pchire.github.io/static/js/39.1b978cb2.js.map"
+  },
+  "entrypoints": [
+    "static/js/39.1b978cb2.js",
+    "static/js/main.1f2ea396.js"
+  ]
+}
