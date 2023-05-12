@@ -1,12 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Landing from './screens/Landing';
+import Portfolio from './screens/Portfolio';
+import TabNavigator from './navigators/TabNavigator';
+
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
+
   return (
-    <View style={styles.container}>
-      <Text>Under Construction</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <TabNavigator>
+        {/* <Stack.Navigator>
+          <Stack.Screen name="Home" component={Landing} options={{title:'Home'}} />
+          <Stack.Screen name="Portfolio" component={Portfolio} options={{title:'Projects'}} />
+        </Stack.Navigator> */}
+      </TabNavigator>
+    </NavigationContainer>
+
   );
 }
 
