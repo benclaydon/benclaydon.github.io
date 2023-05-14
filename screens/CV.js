@@ -3,12 +3,12 @@ import { Text } from "react-native-paper";
 import { Image } from "react-native";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import TopNavigator from '../navigators/TopNavigator';
-import { viewStyle } from "./screenStyle";
+import { styles } from "./Style";
 
 export default function CV({ navigation }) {
     return (
         <SafeAreaProvider>
-            <View style={viewStyle}>
+            <View style={styles.view}>
                 <TopNavigator navigation={navigation} />
 
                 <Text>This is the CV page</Text>

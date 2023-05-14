@@ -1,34 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import Landing from './screens/Landing';
-import Portfolio from './screens/Portfolio';
-import TabNavigator from './navigators/TabNavigator';
+import CV from './screens/CV';
 
-
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
 
   return (
     <NavigationContainer>
-      <TabNavigator>
-        {/* <Stack.Navigator>
-          <Stack.Screen name="Home" component={Landing} options={{title:'Home'}} />
-          <Stack.Screen name="Portfolio" component={Portfolio} options={{title:'Projects'}} />
-        </Stack.Navigator> */}
-      </TabNavigator>
+        <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Home" component={Landing} />
+          <Stack.Screen name="About" component={CV} />
+        </Stack.Navigator>
     </NavigationContainer>
-
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
