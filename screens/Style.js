@@ -15,17 +15,24 @@ export const styles = StyleSheet.create({
         width:"100%"
     },
     title: {
-        fontSize: 20,
+        fontSize: 35,
         fontWeight: 'bold',
         fontFamily: 'Consolas',
         color: '#fff'
+    },
+    bodyText: {
+        marginHorizontal: 10,
+        fontSize: 17,
+        fontWeight: '450',
+        fontFamily: 'Consolas',
+        color: '#fff',
     },
     menu: {
         flexDirection: 'row',
     },
     menuItem: {
         marginHorizontal: 10,
-        fontSize: 16,
+        fontSize: 22,
         fontWeight: '500',
         fontFamily: 'Consolas',
         color: '#fff',
@@ -41,6 +48,14 @@ export const styles = StyleSheet.create({
         width: '100%',
         height: undefined,
         aspectRatio: 1536 / 2048,
+
+    },
+    selfImgDiv: {
+        width: "15%",
+        padding:"10px",
         top: '8px',
+        shadowColor: '#fff',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
     }
 });

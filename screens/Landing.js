@@ -10,13 +10,13 @@ export default function Landing({ navigation }) {
         <SafeAreaProvider>
             <View style={styles.view}>
                 <TopNavigator navigation={navigation}/>
-
-
-                <div style={{ width: "25%" }}>
+                <div style={ styles.selfImgDiv }>
                     <Image source={require("../assets/me.jpg")} style={styles.selfImg} />
                 </div>
-                <Text>I'm a developer with experience in both industrial and research settings.</Text>
-                <Text>I'm particularly proficient with Python, but have experience in C. </Text>
+                <Text style={styles.bodyText}>Hi, I'm Ben.</Text>
+                <Text style={styles.bodyText}>I'm a current Computer Science PhD student at the University of St Andrews.</Text>
+                <Text style={styles.bodyText}>I primarily use Python, but am also highly proficient with Java.</Text>
+                <Text style={styles.bodyText}>You can check out examples of my work or contact me here!</Text>
             </View>
         </SafeAreaProvider>
     );

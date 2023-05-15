@@ -2,7 +2,7 @@ import { SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Landing from './screens/Landing';
-import CV from './screens/CV';
+import Projects from './screens/Projects';
 
 const Stack = createStackNavigator();
 
@@ -12,7 +12,7 @@ export default function App() {
     <NavigationContainer>
         <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={Landing} />
-          <Stack.Screen name="About" component={CV} />
+          <Stack.Screen name="Projects" component={Projects} />
         </Stack.Navigator>
     </NavigationContainer>
   );
