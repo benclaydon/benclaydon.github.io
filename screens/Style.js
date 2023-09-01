@@ -27,6 +27,19 @@ export const styles = StyleSheet.create({
         fontFamily: 'Consolas',
         color: '#fff',
     },
+    bodyTextNoIndent: {
+        fontSize: 17,
+        fontWeight: '450',
+        fontFamily: 'Consolas',
+        color: '#fff',
+    },
+    formText: {
+        marginHorizontal: 10,
+        fontSize: 17,
+        fontWeight: '450',
+        fontFamily: 'Arial',
+        color: '#000',
+    },
     menu: {
         flexDirection: 'row',
     },
@@ -57,5 +70,5 @@ export const styles = StyleSheet.create({
         shadowColor: '#fff',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
-    }
+    },
 });

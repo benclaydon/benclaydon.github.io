@@ -10,7 +10,6 @@ const TopNavigator = ({ navigation }) => {
         setTimeout(() => {
             setBlink(!blink);
         }, 500);
-        console.log("Update");
     }, [blink])
 
     return (
@@ -19,8 +18,8 @@ const TopNavigator = ({ navigation }) => {
             <View style={styles.menu}>
                 <Text style={styles.menuItem} onPress={() => navigation.navigate('Home')}>Home</Text>
                 <Text style={styles.menuItem} onPress={() => navigation.navigate('Projects')}>Projects</Text>
-                <Text style={styles.menuItem}>Education & Employment</Text>
-                <Text style={styles.menuItem}>Contact</Text>
+                <Text style={styles.menuItem} onPress={() => navigation.navigate('CV')}>Education & Employment</Text>
+                <Text style={styles.menuItem} onPress={() => navigation.navigate('Contact')}>Contact</Text>
             </View>
         </View>
     );
