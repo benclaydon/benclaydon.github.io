@@ -14,9 +14,10 @@ export default function Landing({ navigation }) {
                     <Image source={require("../assets/me.jpg")} style={styles.selfImg} />
                 </div>
                 <Text style={styles.bodyText}>Hi, I'm Ben.</Text>
-                <Text style={styles.bodyText}>I'm a current Computer Science PhD student at the University of St Andrews.</Text>
-                <Text style={styles.bodyText}>I primarily use Python, but am also highly proficient with Java.</Text>
-                <Text style={styles.bodyText}>You can check out examples of my work or contact me here!</Text>
+                <Text style={styles.bodyText}>I'm a second year PhD candidate at the School of Computer Science, University of St Andrews under the supervision of <a href="https://www.st-andrews.ac.uk/computer-science/people/rchc/">Prof Richard Connor</a> and <a href="https://www.st-andrews.ac.uk/computer-science/people/al/">Prof Al Dearle</a>. </Text>
+                <Text style={styles.bodyText}>My research area is similarity search. Broadly defined, this is the task of finding similar items from a large collection, given another presented as a query. </Text>
+                <Text style={styles.bodyText}>This becomes challenging once we index lots (billions) of objects, and require high-accuracy answers in fractions of a second.</Text>
+                <Text style={styles.bodyText}>You can find examples of my work or contact me here!</Text>
             </View>
         </SafeAreaProvider>
     );

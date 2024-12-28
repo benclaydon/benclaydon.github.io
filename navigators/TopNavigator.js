@@ -17,7 +17,7 @@ const TopNavigator = ({ navigation }) => {
             <Text style={styles.title}>{`> Ben Claydon` +  (blink % 2 == 0 ? `_` : ` `)}</Text>
             <View style={styles.menu}>
                 <Text style={styles.menuItem} onPress={() => navigation.navigate('Home')}>Home</Text>
-                <Text style={styles.menuItem} onPress={() => navigation.navigate('Projects')}>Projects</Text>
+                {/* <Text style={styles.menuItem} onPress={() => navigation.navigate('Projects')}>Projects</Text> */}
                 <Text style={styles.menuItem} onPress={() => navigation.navigate('CV')}>Education & Employment</Text>
                 <Text style={styles.menuItem} onPress={() => navigation.navigate('Contact')}>Contact</Text>
             </View>

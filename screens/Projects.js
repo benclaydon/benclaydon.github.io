@@ -3,8 +3,8 @@ import { Text } from "react-native-paper";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import TopNavigator from '../navigators/TopNavigator';
 import { styles } from "./Style";
-import { List } from 'react-native-paper';
 import { useState } from "react";
+import Project from "../components/Project";
 
 
 export default function Landing({ navigation }) {
@@ -18,24 +18,6 @@ export default function Landing({ navigation }) {
 
                 <Text style={styles.bodyText}>Here are some selected projects.</Text>
 
-                <List.Section title="Accordions">
-                    <List.Accordion
-                        title="Uncontrolled Accordion"
-                        left={props => <List.Icon {...props} icon="folder" />}>
-                        <List.Item title="First item" />
-                        <List.Item title="Second item" />
-                    </List.Accordion>
-
-                    <List.Accordion
-                        title="Controlled Accordion"
-                        left={props => <List.Icon {...props} icon="folder" />}
-                        expanded={expanded}
-                        // onPress={handlePress}
-                        >
-                        <List.Item title="First item" />
-                        <List.Item title="Second item" />
-                    </List.Accordion>
-                </List.Section>
             </View>
         </SafeAreaProvider>
     );

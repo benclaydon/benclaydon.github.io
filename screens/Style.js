@@ -15,10 +15,11 @@ export const styles = StyleSheet.create({
         width:"100%"
     },
     title: {
-        fontSize: 35,
+        fontSize: 18,
         fontWeight: 'bold',
         fontFamily: 'Consolas',
-        color: '#fff'
+        color: '#fff',
+        marginTop: "10px" 
     },
     bodyText: {
         marginHorizontal: 10,
@@ -52,7 +53,7 @@ export const styles = StyleSheet.create({
     },
     view: {
         padding: "10px",
-        alignItems: "center",
+        // alignItems: "center",
         color: '#aaa',
         backgroundColor: '#1a1a1a',
         height: "100%"
@@ -71,4 +72,7 @@ export const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
     },
+    ul: {
+        margin: "0px"
+    }
 });
