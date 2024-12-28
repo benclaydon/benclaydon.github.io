@@ -13,9 +13,11 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         elevation: 2,
         width:"100%"
+        
     },
     title: {
-        fontSize: 18,
+        marginHorizontal: 10,
+        fontSize: 24,
         fontWeight: 'bold',
         fontFamily: 'Consolas',
         color: '#fff',
@@ -53,24 +55,27 @@ export const styles = StyleSheet.create({
     },
     view: {
         padding: "10px",
-        // alignItems: "center",
         color: '#aaa',
         backgroundColor: '#1a1a1a',
         height: "100%"
     },
     selfImg: {
-        width: '100%',
-        height: undefined,
-        aspectRatio: 1536 / 2048,
+        // width: '10%',
+        width: '20%',
+        aspectRatio: 2048 / 1536,
 
     },
     selfImgDiv: {
-        width: "15%",
+        // width: "20%",
+        height: "20%",
         padding:"10px",
         top: '8px',
         shadowColor: '#fff',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
+        display:"flex",
+        justifyContent: "center",
+        alignItems: "center"
     },
     ul: {
         margin: "0px"
