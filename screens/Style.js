@@ -1,4 +1,8 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+
+const dimensions = Dimensions.get('window');
+const imageWidth = 1536 / 2048  * imageHeight;
+const imageHeight = dimensions.imageHeight / 5;
 
 export const styles = StyleSheet.create({
     container: {
@@ -60,14 +64,13 @@ export const styles = StyleSheet.create({
         height: "100%"
     },
     selfImg: {
-        // width: '10%',
-        width: '20%',
-        aspectRatio: 2048 / 1536,
+        // width: imageWidth,
+        // height: imageHeight
 
     },
     selfImgDiv: {
         // width: "20%",
-        height: "20%",
+        // height: "20%",
         padding:"10px",
         top: '8px',
         shadowColor: '#fff',
