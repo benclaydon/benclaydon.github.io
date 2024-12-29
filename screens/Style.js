@@ -14,17 +14,14 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         elevation: 2,
         width:"100%",
-        overflow: "auto"
-        
+        overflow: "auto",
+        marginBottom: "10px" 
     },
     title: {
-        whiteSpace: "pre",
-        marginHorizontal: 10,
         fontSize: 24,
         fontWeight: 'bold',
         fontFamily: 'Consolas',
         color: '#fff',
-        marginTop: "10px" 
     },
     bodyText: {
         marginHorizontal: 10,

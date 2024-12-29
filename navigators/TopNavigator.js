@@ -12,12 +12,29 @@ const TopNavigator = ({ navigation }) => {
         }, 500);
     }, [blink])
 
+    const text = "Ben Claydon_";
+    const charIndexToHighlight = 11; // Index of the character to highlight
+    const highlightedColor = "black"; // Color for the highlighted character
+
+
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{`> Ben Claydon` +  (blink % 2 == 0 ? `_` : ` `)}</Text>
+            <Text>
+                {text.split('').map((char, index) => (
+                    <Text
+                        key={index}
+                        style={[styles.title, {
+                            color: index === charIndexToHighlight && blink ? highlightedColor : "#fff",
+                        }]}
+                    >
+                    {char}
+                    </Text>
+                ))}
+            </Text>
+
             <View style={styles.menu}>
                 <Text style={styles.menuItem} onPress={() => navigation.navigate('Home')}>Home</Text>
-                {/* <Text style={styles.menuItem} onPress={() => navigation.navigate('Projects')}>Projects</Text> */}
+                <Text style={styles.menuItem} onPress={() => navigation.navigate('Projects')}>Projects</Text>
                 <Text style={styles.menuItem} onPress={() => navigation.navigate('CV')}>Education & Employment</Text>
                 <Text style={styles.menuItem} onPress={() => navigation.navigate('Contact')}>Contact</Text>
             </View>
