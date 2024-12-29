@@ -1,11 +1,8 @@
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 
-const dimensions = Dimensions.get('window');
-const imageWidth = 1536 / 2048  * imageHeight;
-const imageHeight = dimensions.imageHeight / 5;
-
 export const styles = StyleSheet.create({
     container: {
+        display: "flex",
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -16,10 +13,12 @@ export const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         elevation: 2,
-        width:"100%"
+        width:"100%",
+        overflow: "auto"
         
     },
     title: {
+        whiteSpace: "pre",
         marginHorizontal: 10,
         fontSize: 24,
         fontWeight: 'bold',
