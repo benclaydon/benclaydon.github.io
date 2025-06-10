@@ -90,19 +90,20 @@ Each change counts as a move
 Can you guess the ORIGINAL number displayed on screen in the minimal number of moves?
 */
 
-function DialGroup({ num, map, onIncrement, onDecrement, setFn }) {
+function DialGroup({ text, isAction, num, map, onIncrement, onDecrement, setFn }) {
     return (
         <View style={styles.dialGroup}>
+            <Text style={styles.title}>{text}</Text>
             {num.map((value, index) => (
                 <View key={index} style={styles.dialContainer}>
-                    <Button title="+" onPress={() => onIncrement(index, setFn)} />
+                    <Button title="+" onPress={() => onIncrement(index, setFn, isAction)} />
                     <Display
                         value={value.toString()}
                         count="1"
                         skew="true"
                         charMap={map[index]}
                     />
-                    <Button title="-" onPress={() => onDecrement(index, setFn)} />
+                    <Button title="-" onPress={() => onDecrement(index, setFn, isAction)} />
                 </View>
             ))}
         </View>
@@ -122,20 +123,22 @@ export default function BrokenDial({ navigation }) {
     const [unbroken, setUnbroken] = useState(Array(NUM_DIALS).fill(0));
     const [seed, setSeed] = useState(getSeed());
     const [map, setMap] = useState(null);
-    const [solutionNum, setSolutionNum] = useState(null);
     const [actions, setActions] = useState(0);
 
-    const incrementDial = (index, setFn) => {
+    const incrementDial = (index, setFn, isAction) => {
         setFn((prevNum) => {
             const newNum = [...prevNum];
             newNum[index] = newNum[index] + 1;
             newNum[index] = Math.abs(newNum[index]) % 10;
             console.log(newNum);
+            if (isAction) {
+                setActions(actions + 1);
+            }
             return newNum;
         });
     };
 
-    const decrementDial = (index, setFn) => {
+    const decrementDial = (index, setFn, isAction) => {
         setFn((prevNum) => {
             const newNum = [...prevNum];
             newNum[index] = newNum[index] - 1;
@@ -147,6 +150,9 @@ export default function BrokenDial({ navigation }) {
             }
 
             console.log(newNum);
+            if (isAction) {
+                setActions(actions + 1);
+            }
             return newNum;
         });
     };
@@ -169,12 +175,7 @@ export default function BrokenDial({ navigation }) {
 
         setMap(tempMap);
 
-        // The secret solution
-        var random_num = rng(randomState.nextSeed, setSeed);
-        let secret_solution = Math.floor(random_num.value * (Math.pow(10, NUM_DIALS)));
-        setSolutionNum(secret_solution);
-
-        var start_broken = rng(random_num.nextSeed, setSeed);
+        var start_broken = rng(randomState.nextSeed, setSeed);
         start_broken_num = Math.floor((Math.pow(10, NUM_DIALS)) * start_broken.value);
         var start_broken_arr = getDigits(start_broken_num)
         setBroken(start_broken_arr)
@@ -186,7 +187,6 @@ export default function BrokenDial({ navigation }) {
 
         console.log("Broken start number: " + start_broken_num);
         console.log("Unbroken start number: " + start_unbroken_num);
-        console.log("Secret solution: " + secret_solution);
     }, []);
 
 
@@ -196,6 +196,8 @@ export default function BrokenDial({ navigation }) {
                 <TopNavigator navigation={navigation} />
 
                 {map && <DialGroup 
+                        text={"  Broken:"}
+                        isAction={true}
                         num={broken} 
                         map={map}                         
                         onIncrement={incrementDial}
@@ -204,6 +206,8 @@ export default function BrokenDial({ navigation }) {
                 }
 
                 {<DialGroup 
+                        text={"Solution:"}
+                        isAction={false}
                         num={unbroken} 
                         map={[defaultMap, defaultMap, defaultMap]}  // Each dial is default                     
                         onIncrement={incrementDial}
@@ -211,11 +215,21 @@ export default function BrokenDial({ navigation }) {
                         setFn={setUnbroken} />
                 }
 
-
                 <Button
-                    title="Submit"
+                    title={"Submit | Actions: " + actions}
                     onPress={() => {
+                        var is_solved = true;
                         
+                        for (var i = 0; i < NUM_DIALS; i++) {
+                            is_solved = is_solved & (broken[i] == unbroken[i]);
+                        }
+
+                        if (is_solved) {
+                            alert("Solved in " + actions + " moves!");
+                        } else {
+                            alert("Incorrect - 5 added to move counter!");
+                            setActions(actions + 5);
+                        }
                     }}
                 />
 
@@ -223,4 +237,3 @@ export default function BrokenDial({ navigation }) {
         </SafeAreaProvider>
     );
 }
-
