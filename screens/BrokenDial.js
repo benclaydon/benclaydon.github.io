@@ -6,12 +6,11 @@ import { styles } from "./Style";
 import React, { useEffect, useState } from 'react';
 import { Display } from "custom-7-segment";
 
-const INSTRUCTION_1="The goal of the game is to match the numbers displayed on the broken dial (top) and the solution dial (bottom) in the fewest number of moves. Each dial is represented by a 7-segment display which may take values 0-9. Each dial initially shows two totally random 4-digit numbers.";
-const INSTRUCTION_2="The broken dial has some segments which are faulty. This means that the state they should show is inverted.  As an example, a 0 with a single faulty segment in the centre would become an 8, as the normally OFF state has been inverted to ON. Similarly, a 7 with only a faulty top horizonal segment would show 1, as it has been inverted from ON to OFF.";
-const INSTRUCTION_3= "Critically, each segment is faulty exactly once in the whole puzzle. If a given segment (for example the middle horizonal segment) is known to be faulty in one digit, it is guaranteed to be correct and fault-free in all other digits. Thus, there are exactly 7 faulty segments in the whole puzzle. However, multiple segments (or none at all) can be faulty in a single digit.";
-const INSTRUCTION_4="The up and down buttons may be used to change the dials. Changing the solution dial does not count as a move, but changing the faulty dial does. The solution is correct when the broken number matches the solution number after accounting for the broken segments.";
-const INSTRUCTION_5="If correct, you will see a success message with the number of moves taken. If incorrect, 5 penalty moves will be added to your move counter. Three moves is pretty good going I find!";
-
+const INSTRUCTION_1="The goal of the game is to match the numbers displayed on the faulty dial (top) and the solution dial (bottom) in the fewest number of moves. Each dial is represented by a 7-segment display which may take values 0-9. Each dial initially shows two totally random 4-digit numbers.";
+const INSTRUCTION_2="The faulty dial has some segments which are faulty. This means that the state of those faulty segments is inverted.  As an example, a 0 with a single faulty centre segment would become an 8, as the normally OFF state has been inverted to ON. Similarly, a 7 with only a faulty top horizonal segment would show 1, as it has been inverted from ON to OFF.";
+const INSTRUCTION_3="A digit has 7 individual types of segment, and a puzzle consists of 4 digits. Each type of segment is faulty exactly once in each puzzle. Therefore if a given segment (for example the middle horizonal segment) is known to be faulty in one digit, it is guaranteed to be correct and fault-free in all other digits. Accordingly, there are exactly 7 faulty segments in the whole puzzle. However, multiple segments (or none at all) may be faulty in a single digit.";
+const INSTRUCTION_4="The up and down buttons may be used to change the faulty and solution dials. Changing the solution dial does not count as a move, but changing the faulty dial does. A solution is correct when the faulty number matches the solution number after accounting for the faulty segments.";
+const INSTRUCTION_5="If correct, you will see a success message with the number of moves taken. If incorrect, 5 penalty moves will be added to your move counter.";
 // Some RNG stuff
 function splitmix32(a) {
     let t = a ^ a >>> 16;
