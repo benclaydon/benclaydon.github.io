@@ -16,7 +16,7 @@ export default function App() {
     <NavigationContainer>
         <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={Landing} />
-          <Stack.Screen name="Projects" component={Projects} />
+          {/* <Stack.Screen name="Projects" component={Projects} /> */}
           <Stack.Screen name="CV" component={CV} />
           <Stack.Screen name="Contact" component={Contact} />
           <Stack.Screen name="BrokenDial" component={BrokenDial} />
