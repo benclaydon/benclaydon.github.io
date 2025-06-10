@@ -88,5 +88,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'column', // Places the button, dial, and button vertically
         alignItems: 'center',
         marginHorizontal: 10, // Adds spacing between dials
+        padding: 5,
+
     },
 });

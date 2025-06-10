@@ -43,7 +43,7 @@ function getBrokenSegments(seed, setSeed) {
         seed = result.nextSeed; // Update the seed locally
     }
 
-    return brokenSegments;
+    return {segments: brokenSegments, nextSeed: seed};
 }
 
 function getNewMap(dialNumber, randomState) {
@@ -110,10 +110,12 @@ function DialGroup({ num, map, onIncrement, onDecrement, setFn }) {
 }   
 
 export default function BrokenDial({ navigation }) {
-    const [num, setNum] = useState([0, 0, 0]);
-    const [solution, setSolution] = useState([0, 0, 0]);
+    const [broken, setBroken] = useState([0, 0, 0]);
+    const [unbroken, setUnbroken] = useState([0, 0, 0]);
     const [seed, setSeed] = useState(getSeed());
-    const [map, setMap] = useState(null); // State to store map
+    const [map, setMap] = useState(null);
+    const [solutionNum, setSolutionNum] = useState(null);
+    const [actions, setActions] = useState(0);
 
     const incrementDial = (index, setFn) => {
         setFn((prevNum) => {
@@ -144,7 +146,25 @@ export default function BrokenDial({ navigation }) {
     // Set the random seed to today's seed
     useEffect(() => {
         let randomState = getBrokenSegments(seed, setSeed)
-        setMap([getNewMap(0, randomState), getNewMap(1, randomState), getNewMap(2, randomState)]);
+        setMap([getNewMap(0, randomState.segments), getNewMap(1, randomState.segments), getNewMap(2, randomState.segments)]);
+
+        var random_num = rng(randomState.nextSeed, setSeed);
+        let secret_solution = Math.floor(random_num.value * 1000);
+        setSolutionNum(secret_solution);
+
+        var start_broken = rng(random_num.nextSeed, setSeed);
+        start_broken_num = Math.floor(1000 * start_broken.value);
+        var start_broken_arr = [Math.floor(start_broken_num / 100), Math.floor(start_broken_num / 10) % 10, start_broken_num % 10]
+        setBroken(start_broken_arr)
+
+        var start_unbroken = rng(start_broken.nextSeed, setSeed);
+        start_unbroken_num = Math.floor(1000 * start_unbroken.value);
+        var start_unbroken_arr = [Math.floor(start_unbroken_num / 100), Math.floor(start_unbroken_num / 10) % 10, start_unbroken_num % 10]
+        setUnbroken(start_unbroken_arr)
+
+        console.log("Broken start number: " + start_broken_num);
+        console.log("Unbroken start number: " + start_unbroken_num);
+        console.log("Secret solution: " + secret_solution);
     }, []);
 
 
@@ -153,22 +173,22 @@ export default function BrokenDial({ navigation }) {
             <View style={styles.view}>
                 <TopNavigator navigation={navigation} />
 
-                <Text style={styles.title}>Here be a number</Text>
                 {map && <DialGroup 
-                        num={num} 
+                        num={broken} 
                         map={map}                         
                         onIncrement={incrementDial}
                         onDecrement={decrementDial}
-                        setFn={setNum} />
+                        setFn={setBroken} />
                 }
 
                 {<DialGroup 
-                        num={solution} 
+                        num={unbroken} 
                         map={[defaultMap, defaultMap, defaultMap]}  // Each dial is default                     
                         onIncrement={incrementDial}
                         onDecrement={decrementDial}
-                        setFn={setSolution} />
+                        setFn={setUnbroken} />
                 }
+
 
                 <Button
                     title="Submit"
