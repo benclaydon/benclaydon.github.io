@@ -30,7 +30,7 @@ export default function BrokenDial({ navigation }) {
 
                 <Button
                     title="Press me"
-                    onPress={() => console.log('Simple Button pressed')}
+                    onPress={() => setNum(num + 1)}
                 />
 
             </View>
