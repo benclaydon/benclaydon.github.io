@@ -96,7 +96,7 @@ Can you guess the ORIGINAL number displayed on screen in the minimal number of m
 
 function DialGroup({ text, isAction, num, map, onIncrement, onDecrement, setFn }) {
     return (
-        <View style={styles.dialGroup}>
+        <View style={styles.dialContainer}>
             <Text style={styles.title}>{text}</Text>
             {num.map((value, index) => (
                 <View key={index} style={styles.dialContainer}>

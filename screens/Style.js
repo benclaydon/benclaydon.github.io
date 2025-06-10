@@ -85,10 +85,10 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     dialContainer: {
-        flexDirection: 'column', // Places the button, dial, and button vertically
+        flexDirection: 'row', // Places the button, dial, and button vertically
         alignItems: 'center',
         marginHorizontal: 10, // Adds spacing between dials
         padding: 5,
-
+        overflow: 'scroll', // Enables horizontal scrolling
     },
 });
