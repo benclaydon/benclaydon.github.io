@@ -19,7 +19,7 @@ function splitmix32(a) {
 // Gets the number of days since epoch. This is the random seed of today's puzzle
 function getSeed() {
     var now = new Date();
-    var fullDaysSinceEpoch = Math.floor(now/8.64e7);
+    var fullDaysSinceEpoch = Math.floor(now)///8.64e7);
     return fullDaysSinceEpoch;
 }
 
@@ -49,12 +49,12 @@ function getBrokenSegments(seed, setSeed) {
 function getNewMap(dialNumber, randomState) {
     var newMap = structuredClone(defaultMap);
 
-    for (i = 0; i < randomState.length; i++) {
+    for (var i = 0; i < randomState.length; i++) {
         var num = randomState[i];
 
         // If this is the dial we are modifying then flip
         if (num == dialNumber) {
-            for (j = 0; j < 10; j++) {
+            for (var j = 0; j < 10; j++) {
                 newMap[parseInt(j)][i] = newMap[parseInt(j)][i] === 1 ? 0 : 1;
             }
         }
@@ -63,7 +63,7 @@ function getNewMap(dialNumber, randomState) {
     return newMap;
 }
 
-const NUM_DIALS = 3;
+const NUM_DIALS = 4;
 
 const defaultMap = {
     "0": [1, 1, 1, 1, 1, 1, 0],
@@ -107,11 +107,19 @@ function DialGroup({ num, map, onIncrement, onDecrement, setFn }) {
             ))}
         </View>
     );
-}   
+}
+
+function getDigits(num) {
+    const digits = num.toString().split('').map(Number);
+    while (digits.length < NUM_DIALS) {
+        digits.unshift(0);
+    }
+    return digits;
+}
 
 export default function BrokenDial({ navigation }) {
-    const [broken, setBroken] = useState([0, 0, 0]);
-    const [unbroken, setUnbroken] = useState([0, 0, 0]);
+    const [broken, setBroken] = useState(Array(NUM_DIALS).fill(0));
+    const [unbroken, setUnbroken] = useState(Array(NUM_DIALS).fill(0));
     const [seed, setSeed] = useState(getSeed());
     const [map, setMap] = useState(null);
     const [solutionNum, setSolutionNum] = useState(null);
@@ -145,21 +153,35 @@ export default function BrokenDial({ navigation }) {
 
     // Set the random seed to today's seed
     useEffect(() => {
+        // Get the segments and make the new dials
         let randomState = getBrokenSegments(seed, setSeed)
-        setMap([getNewMap(0, randomState.segments), getNewMap(1, randomState.segments), getNewMap(2, randomState.segments)]);
+        console.log("The random state is: " + randomState.segments); 
 
+        let tempMap = Array(NUM_DIALS).fill(0);
+
+        for (var i = 0; i < NUM_DIALS; i++) {
+            tempMap[i] = getNewMap(i, randomState.segments);
+            console.log("We are on loop " + i);
+        }
+
+        console.log("Temp map:");
+        console.log(tempMap);
+
+        setMap(tempMap);
+
+        // The secret solution
         var random_num = rng(randomState.nextSeed, setSeed);
-        let secret_solution = Math.floor(random_num.value * 1000);
+        let secret_solution = Math.floor(random_num.value * (Math.pow(10, NUM_DIALS)));
         setSolutionNum(secret_solution);
 
         var start_broken = rng(random_num.nextSeed, setSeed);
-        start_broken_num = Math.floor(1000 * start_broken.value);
-        var start_broken_arr = [Math.floor(start_broken_num / 100), Math.floor(start_broken_num / 10) % 10, start_broken_num % 10]
+        start_broken_num = Math.floor((Math.pow(10, NUM_DIALS)) * start_broken.value);
+        var start_broken_arr = getDigits(start_broken_num)
         setBroken(start_broken_arr)
 
         var start_unbroken = rng(start_broken.nextSeed, setSeed);
-        start_unbroken_num = Math.floor(1000 * start_unbroken.value);
-        var start_unbroken_arr = [Math.floor(start_unbroken_num / 100), Math.floor(start_unbroken_num / 10) % 10, start_unbroken_num % 10]
+        start_unbroken_num = Math.floor((Math.pow(10, NUM_DIALS)) * start_unbroken.value);
+        var start_unbroken_arr = getDigits(start_unbroken_num)
         setUnbroken(start_unbroken_arr)
 
         console.log("Broken start number: " + start_broken_num);
