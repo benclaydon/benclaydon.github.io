@@ -37,6 +37,8 @@ const TopNavigator = ({ navigation }) => {
                 <Text style={styles.menuItem} onPress={() => navigation.navigate('Projects')}>Projects</Text>
                 <Text style={styles.menuItem} onPress={() => navigation.navigate('CV')}>Education & Employment</Text>
                 <Text style={styles.menuItem} onPress={() => navigation.navigate('Contact')}>Contact</Text>
+                <Text style={styles.menuItem} onPress={() => navigation.navigate('BrokenDial')}>Broken Dial</Text>
+
             </View>
         </View>
     );
