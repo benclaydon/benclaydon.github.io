@@ -39,17 +39,34 @@ function getBrokenSegments(seed, setSeed) {
 
     for (let i = 0; i < 7; i++) {
         const result = rng(seed, setSeed);
-        brokenSegments[i] = result.value; // Use the random value
+        brokenSegments[i] = parseInt(result.value * NUM_DIALS); // Use the random value
         seed = result.nextSeed; // Update the seed locally
     }
 
     return brokenSegments;
 }
 
+function getNewMap(dialNumber, randomState) {
+    var newMap = structuredClone(defaultMap);
+
+    for (i = 0; i < randomState.length; i++) {
+        var num = randomState[i];
+
+        // If this is the dial we are modifying then flip
+        if (num == dialNumber) {
+            for (j = 0; j < 10; j++) {
+                newMap[parseInt(j)][i] = newMap[parseInt(j)][i] === 1 ? 0 : 1;
+            }
+        }
+    }
+
+    return newMap;
+}
+
 const NUM_DIALS = 3;
 
 const defaultMap = {
-    "0": [1, 1, 1, 1, 1, 1, 1],
+    "0": [1, 1, 1, 1, 1, 1, 0],
     "1": [0, 1, 1, 0, 0, 0, 0],
     "2": [1, 1, 0, 1, 1, 0, 1],
     "3": [1, 1, 1, 1, 0, 0, 1],
@@ -73,15 +90,61 @@ Each change counts as a move
 Can you guess the ORIGINAL number displayed on screen in the minimal number of moves?
 */
 
+function DialGroup({ num, map, onIncrement, onDecrement, setFn }) {
+    return (
+        <View style={styles.dialGroup}>
+            {num.map((value, index) => (
+                <View key={index} style={styles.dialContainer}>
+                    <Button title="+" onPress={() => onIncrement(index, setFn)} />
+                    <Display
+                        value={value.toString()}
+                        count="1"
+                        skew="true"
+                        charMap={map[index]}
+                    />
+                    <Button title="-" onPress={() => onDecrement(index, setFn)} />
+                </View>
+            ))}
+        </View>
+    );
+}   
+
 export default function BrokenDial({ navigation }) {
-    const [num, setNum] = useState(142);
-    const [seed, setSeed] = useState(getSeed())
+    const [num, setNum] = useState([0, 0, 0]);
+    const [solution, setSolution] = useState([0, 0, 0]);
+    const [seed, setSeed] = useState(getSeed());
+    const [map, setMap] = useState(null); // State to store map
+
+    const incrementDial = (index, setFn) => {
+        setFn((prevNum) => {
+            const newNum = [...prevNum];
+            newNum[index] = newNum[index] + 1;
+            newNum[index] = Math.abs(newNum[index]) % 10;
+            console.log(newNum);
+            return newNum;
+        });
+    };
+
+    const decrementDial = (index, setFn) => {
+        setFn((prevNum) => {
+            const newNum = [...prevNum];
+            newNum[index] = newNum[index] - 1;
+
+            if (newNum[index] === -1) {
+                newNum[index] = 9;
+            } else {
+                newNum[index] = Math.abs(newNum[index]) % 10;
+            }
+
+            console.log(newNum);
+            return newNum;
+        });
+    };
 
     // Set the random seed to today's seed
-
     useEffect(() => {
-        let segments = getBrokenSegments(seed, setSeed);
-        console.log(segments);
+        let randomState = getBrokenSegments(seed, setSeed)
+        setMap([getNewMap(0, randomState), getNewMap(1, randomState), getNewMap(2, randomState)]);
     }, []);
 
 
@@ -91,16 +154,26 @@ export default function BrokenDial({ navigation }) {
                 <TopNavigator navigation={navigation} />
 
                 <Text style={styles.title}>Here be a number</Text>
+                {map && <DialGroup 
+                        num={num} 
+                        map={map}                         
+                        onIncrement={incrementDial}
+                        onDecrement={decrementDial}
+                        setFn={setNum} />
+                }
 
-                <Display value={ num.toString() } count="3" skew="true" charMap={
-                    defaultMap
-                }/>
+                {<DialGroup 
+                        num={solution} 
+                        map={[defaultMap, defaultMap, defaultMap]}  // Each dial is default                     
+                        onIncrement={incrementDial}
+                        onDecrement={decrementDial}
+                        setFn={setSolution} />
+                }
 
                 <Button
-                    title="Press me"
+                    title="Submit"
                     onPress={() => {
-                        setNum(num + 1);
-                        console.log(rng(seed, setSeed));
+                        
                     }}
                 />
 

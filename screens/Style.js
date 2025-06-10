@@ -78,5 +78,15 @@ export const styles = StyleSheet.create({
     },
     ul: {
         margin: "0px"
-    }
+    },
+    dialGroup: {
+        flexDirection: 'row', // Places the dials side by side
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    dialContainer: {
+        flexDirection: 'column', // Places the button, dial, and button vertically
+        alignItems: 'center',
+        marginHorizontal: 10, // Adds spacing between dials
+    },
 });
