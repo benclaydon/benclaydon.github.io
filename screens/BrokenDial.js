@@ -24,7 +24,7 @@ function splitmix32(a) {
 // Gets the number of days since epoch. This is the random seed of today's puzzle
 function getSeed() {
     var now = new Date();
-    var fullDaysSinceEpoch = Math.floor(now)///8.64e7);
+    var fullDaysSinceEpoch = Math.floor(now) / 8.64e7;
     return fullDaysSinceEpoch;
 }
 
@@ -136,7 +136,7 @@ export default function BrokenDial({ navigation }) {
             const newNum = [...prevNum];
             newNum[index] = newNum[index] + 1;
             newNum[index] = Math.abs(newNum[index]) % 10;
-            console.log(newNum);
+            // console.log(newNum);
             if (isAction) {
                 setActions(actions + 1);
             }
@@ -155,7 +155,7 @@ export default function BrokenDial({ navigation }) {
                 newNum[index] = Math.abs(newNum[index]) % 10;
             }
 
-            console.log(newNum);
+            // console.log(newNum);
             if (isAction) {
                 setActions(actions + 1);
             }
@@ -167,17 +167,17 @@ export default function BrokenDial({ navigation }) {
     useEffect(() => {
         // Get the segments and make the new dials
         let randomState = getBrokenSegments(seed, setSeed)
-        console.log("The random state is: " + randomState.segments); 
+        // console.log("The random state is: " + randomState.segments); 
 
         let tempMap = Array(NUM_DIALS).fill(0);
 
         for (var i = 0; i < NUM_DIALS; i++) {
             tempMap[i] = getNewMap(i, randomState.segments);
-            console.log("We are on loop " + i);
+            // console.log("We are on loop " + i);
         }
 
-        console.log("Temp map:");
-        console.log(tempMap);
+        // console.log("Temp map:");
+        // console.log(tempMap);
 
         setMap(tempMap);
 
@@ -191,8 +191,8 @@ export default function BrokenDial({ navigation }) {
         var start_unbroken_arr = getDigits(start_unbroken_num)
         setUnbroken(start_unbroken_arr)
 
-        console.log("Broken start number: " + start_broken_num);
-        console.log("Unbroken start number: " + start_unbroken_num);
+        // console.log("Broken start number: " + start_broken_num);
+        // console.log("Unbroken start number: " + start_unbroken_num);
     }, []);
 
 
