@@ -6,6 +6,10 @@ import { styles } from "./Style";
 import React, { useEffect, useState } from 'react';
 import { Display } from "custom-7-segment";
 
+const INSTRUCTION_1="The goal of the game is to match the numbers displayed on the broken dial (top) and the solution dial (bottom) in the fewest number of moves. Each dial is represented by a 7-segment display which may take values 0-9. Each dial initially shows two totally random 4-digit numbers.";
+const INSTRUCTION_2="The broken dial has some segments which are faulty. This means that the state they should show is inverted.  As an example, a 0 with a single faulty segment in the centre would become an 8, as the normally OFF state has been inverted to ON. Critically, each segment is faulty exactly once. ";
+const INSTRUCTION_3="The up and down buttons may be used to change the dials. Changing the solution dial does not count as a move, but changing the faulty dial does. The solution is correct when the broken number matches the solution number after accounting for the broken segments.";
+const INSTRUCTION_4="If correct, you will see a success message with the number of moves taken. If incorrect, 5 penalty moves will be added to your move counter. Three moves is pretty good going I find!";
 
 // Some RNG stuff
 function splitmix32(a) {
@@ -124,6 +128,7 @@ export default function BrokenDial({ navigation }) {
     const [seed, setSeed] = useState(getSeed());
     const [map, setMap] = useState(null);
     const [actions, setActions] = useState(0);
+    const [infoVisible, setInfoVisible] = useState(false);
 
     const incrementDial = (index, setFn, isAction) => {
         setFn((prevNum) => {
@@ -195,7 +200,7 @@ export default function BrokenDial({ navigation }) {
             <View style={styles.view}>
                 <TopNavigator navigation={navigation} />
 
-                {map && <DialGroup 
+                {!infoVisible && map && <DialGroup 
                         text={"  Broken:"}
                         isAction={true}
                         num={broken} 
@@ -205,7 +210,7 @@ export default function BrokenDial({ navigation }) {
                         setFn={setBroken} />
                 }
 
-                {<DialGroup 
+                {!infoVisible && <DialGroup 
                         text={"Solution:"}
                         isAction={false}
                         num={unbroken} 
@@ -215,24 +220,48 @@ export default function BrokenDial({ navigation }) {
                         setFn={setUnbroken} />
                 }
 
-                <Button
-                    title={"Submit | Actions: " + actions}
-                    onPress={() => {
-                        var is_solved = true;
-                        
-                        for (var i = 0; i < NUM_DIALS; i++) {
-                            is_solved = is_solved & (broken[i] == unbroken[i]);
-                        }
+                {infoVisible && (
+                    <View style={[styles.infoPanel]}>
+                        <Text style={styles.bodyText}>{INSTRUCTION_1}</Text>
+                        <br /><br />
+                        <Text style={styles.bodyText}>{INSTRUCTION_2}</Text>
+                        <Text style={styles.bodyText}>{INSTRUCTION_3}</Text>
+                        <Text style={styles.bodyText}>{INSTRUCTION_4}</Text>
 
-                        if (is_solved) {
-                            alert("Solved in " + actions + " moves!");
-                        } else {
-                            alert("Incorrect - 5 added to move counter!");
-                            setActions(actions + 5);
-                        }
-                    }}
-                />
+                        <Button
+                            title="Close"
+                            onPress={() => setInfoVisible(false)}
+                        />
+                    </View>
+                )}
 
+                {!infoVisible && (
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Button
+                            title={"Submit | Actions: " + actions}
+                            onPress={() => {
+                                var is_solved = true;
+                                
+                                for (var i = 0; i < NUM_DIALS; i++) {
+                                    is_solved = is_solved & (broken[i] == unbroken[i]);
+                                }
+
+                                if (is_solved) {
+                                    alert("Solved in " + actions + " moves!");
+                                } else {
+                                    alert("Incorrect - 5 added to move counter!");
+                                    setActions(actions + 5);
+                                }
+                            }}
+                        />
+                        <Button
+                            title={"Instructions"}
+                            onPress={() => {
+                                setInfoVisible(true);
+                            }}
+                        />
+                    </View>
+                )}
             </View>
         </SafeAreaProvider>
     );
