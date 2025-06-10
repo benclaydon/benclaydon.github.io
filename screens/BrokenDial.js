@@ -4,7 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import TopNavigator from '../navigators/TopNavigator';
 import { styles } from "./Style";
 import React, { useState } from 'react';
-// import Display from "modified-react-7-segment-display";
+import { Display } from "custom-7-segment";
 
 
 
@@ -26,7 +26,7 @@ export default function BrokenDial({ navigation }) {
 
                 <Text style={styles.title}>Here be a number</Text>
 
-                {/* <Display value={ num.toString() } count="3" skew="true"/>; */}
+                <Display value={ num.toString() } count="3" skew="true"/>;
 
                 <Button
                     title="Press me"
