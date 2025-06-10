@@ -7,9 +7,10 @@ import React, { useEffect, useState } from 'react';
 import { Display } from "custom-7-segment";
 
 const INSTRUCTION_1="The goal of the game is to match the numbers displayed on the broken dial (top) and the solution dial (bottom) in the fewest number of moves. Each dial is represented by a 7-segment display which may take values 0-9. Each dial initially shows two totally random 4-digit numbers.";
-const INSTRUCTION_2="The broken dial has some segments which are faulty. This means that the state they should show is inverted.  As an example, a 0 with a single faulty segment in the centre would become an 8, as the normally OFF state has been inverted to ON. Critically, each segment is faulty exactly once. ";
-const INSTRUCTION_3="The up and down buttons may be used to change the dials. Changing the solution dial does not count as a move, but changing the faulty dial does. The solution is correct when the broken number matches the solution number after accounting for the broken segments.";
-const INSTRUCTION_4="If correct, you will see a success message with the number of moves taken. If incorrect, 5 penalty moves will be added to your move counter. Three moves is pretty good going I find!";
+const INSTRUCTION_2="The broken dial has some segments which are faulty. This means that the state they should show is inverted.  As an example, a 0 with a single faulty segment in the centre would become an 8, as the normally OFF state has been inverted to ON. Similarly, a 7 with only a faulty top horizonal segment would show 1, as it has been inverted from ON to OFF.";
+const INSTRUCTION_3= "Critically, each segment is faulty exactly once in the whole puzzle. If a given segment (for example the middle horizonal segment) is known to be faulty in one digit, it is guaranteed to be correct and fault-free in all other digits. Thus, there are exactly 7 faulty segments in the whole puzzle. However, multiple segments (or none at all) can be faulty in a single digit.";
+const INSTRUCTION_4="The up and down buttons may be used to change the dials. Changing the solution dial does not count as a move, but changing the faulty dial does. The solution is correct when the broken number matches the solution number after accounting for the broken segments.";
+const INSTRUCTION_5="If correct, you will see a success message with the number of moves taken. If incorrect, 5 penalty moves will be added to your move counter. Three moves is pretty good going I find!";
 
 // Some RNG stuff
 function splitmix32(a) {
@@ -223,10 +224,10 @@ export default function BrokenDial({ navigation }) {
                 {infoVisible && (
                     <View style={[styles.infoPanel]}>
                         <Text style={styles.bodyText}>{INSTRUCTION_1}</Text>
-                        <br /><br />
                         <Text style={styles.bodyText}>{INSTRUCTION_2}</Text>
                         <Text style={styles.bodyText}>{INSTRUCTION_3}</Text>
                         <Text style={styles.bodyText}>{INSTRUCTION_4}</Text>
+                        <Text style={styles.bodyText}>{INSTRUCTION_5}</Text>
 
                         <Button
                             title="Close"
