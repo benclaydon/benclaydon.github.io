@@ -100,14 +100,15 @@ function DialGroup({ text, isAction, num, map, onIncrement, onDecrement, setFn }
             <Text style={styles.title}>{text}</Text>
             {num.map((value, index) => (
                 <View key={index} style={styles.dialContainer}>
-                    <Button title="+" onPress={() => onIncrement(index, setFn, isAction)} />
+                    <Button title="-" onPress={() => onDecrement(index, setFn, isAction)} />
                     <Display
                         value={value.toString()}
                         count="1"
                         skew="true"
                         charMap={map[index]}
                     />
-                    <Button title="-" onPress={() => onDecrement(index, setFn, isAction)} />
+                    <Button title="+" onPress={() => onIncrement(index, setFn, isAction)} />
+
                 </View>
             ))}
         </View>
