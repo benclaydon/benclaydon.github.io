@@ -176,9 +176,6 @@ export default function BrokenDial({ navigation }) {
             // console.log("We are on loop " + i);
         }
 
-        // console.log("Temp map:");
-        // console.log(tempMap);
-
         setMap(tempMap);
 
         var start_broken = rng(randomState.nextSeed, setSeed);
@@ -190,9 +187,6 @@ export default function BrokenDial({ navigation }) {
         start_unbroken_num = Math.floor((Math.pow(10, NUM_DIALS)) * start_unbroken.value);
         var start_unbroken_arr = getDigits(start_unbroken_num)
         setUnbroken(start_unbroken_arr)
-
-        // console.log("Broken start number: " + start_broken_num);
-        // console.log("Unbroken start number: " + start_unbroken_num);
     }, []);
 
 
